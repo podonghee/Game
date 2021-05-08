@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.podong.game.module.schduling.dao.BatchMapper">
+
+    <select id="getCompanyTotalList" resultType="com.podong.game.module.schduling.bean.GameCompanyVO" statementType="PREPARED">
+        SELECT  GAME_COMPANY_CID
+                , GAME_COMPANY_NAME
+        FROM    GM_GAME_COMPANY
+        WHERE   USE_YN = 'N'
+    </select>
+    <select id="getGameCompanyNumber" resultType="java.lang.String" statementType="PREPARED">
+        SELECT  IFNULL(MAX(GAME_COMPANY_CID) + 2, 1)
+        FROM    GM_GAME_COMPANY
+    </select>
+    <insert id="insertGameCompany">
+        INSERT INTO GM_GAME_COMPANY (
+            GAME_COMPANY_CID
+            , GAME_COMPANY_NAME
+            , INSERT_DATE
+            , USE_YN
+            , GAME_COMPANY_IMG
+        )
+        VALUES (
+            #{gameCompanyCid, jdbcType=VARCHAR}
+            , #{gameCompanyName, jdbcType=VARCHAR}
+            , CURRENT_TIMESTAMP
+            , 'N'
+            , #{gameCompanyImg, jdbcType=VARCHAR}
+        )
+    </insert>
+    <update id="updateGameCompany">
+        UPDATE GM_GAME_COMPANY
+        SET    USE_YN = 'Y'
+        <if test="gameCompanyTel != null and gameCompanyTel != ''">
+            , GAME_COMPANY_TEL = #{gameCompanyTel, jdbcType=VARCHAR}
+        </if>
+        <if test="gameCompanyAddr != null and gameCompanyAddr != ''">
+            , GAME_COMPANY_ADDR = #{gameCompanyAddr, jdbcType=VARCHAR}
+        </if>
+        <if test="gameCompanySite != null and gameCompanySite != ''">
+            , GAME_COMPANY_SITE = #{gameCompanySite, jdbcType=VARCHAR}
+        </if>
+        <if test="gameCompanyImg != null and gameCompanyImg != ''">
+            , GAME_COMPANY_IMG = #{gameCompanyImg, jdbcType=VARCHAR}
+        </if>
+        WHERE GAME_COMPANY_CID = #{gameCompanyCid, jdbcType=VARCHAR}
+        AND   USE_YN = 'N'
+    </update>
+</mapper>

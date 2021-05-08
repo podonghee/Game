@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.podong.game.module.schduling.dao.BatchMapper">
+
+    <select id="getGameNumber" resultType="java.lang.String" statementType="PREPARED">
+        SELECT  CONCAT(LEFT(IFNULL(MAX(GAME_ID),'P'),1),
+                LPAD((RIGHT(IFNULL(MAX(GAME_ID),'P'),7)+1),7,0))
+        FROM    GM_GAME
+    </select>
+    <select id="getGameTotalList" resultType="com.podong.game.module.schduling.bean.GameDataVO" statementType="PREPARED">
+        SELECT  GAME_ID
+                , GAME_NAME
+        FROM    GM_GAME
+        WHERE   USE_YN = 'N'
+    </select>
+    <update id="updateGameData">
+        UPDATE GM_GAME
+        SET    USE_YN = 'Y'
+            <if test="platform != null and platform != ''">
+               , PLATFORM = #{platform, jdbcType=VARCHAR}
+            </if>
+            <if test="genre != null and genre != ''">
+               , GENRE = #{genre, jdbcType=VARCHAR}
+            </if>
+            <if test="producer != null and producer != ''">
+               , PRODUCER = #{producer, jdbcType=VARCHAR}
+            </if>
+            <if test="provider != null and provider != ''">
+               , PROVIDER = #{provider, jdbcType=VARCHAR}
+            </if>
+            <if test="useCount != null and useCount != ''">
+               , USE_COUNT = #{useCount, jdbcType=VARCHAR}
+            </if>
+            <if test="yearRelase != null and yearRelase != ''">
+               , YEAR_RELASE = #{yearRelase, jdbcType=VARCHAR}
+            </if>
+            <if test="img != null and img != ''">
+               , IMG_URL = #{img, jdbcType=VARCHAR}
+            </if>
+            <if test="description != null and description != ''">
+               , DESCRIPTION = #{description, jdbcType=VARCHAR}
+            </if>
+        WHERE GAME_ID = #{gameId, jdbcType=VARCHAR}
+        AND   USE_YN  = 'N'
+    </update>
+    <insert id="insertGameCrawling">
+        INSERT INTO GM_GAME (
+            GAME_ID
+            , GAME_NAME
+            , INSERT_DATE
+            , USE_YN
+            , IMG_URL
+        )
+        VALUES (
+            #{gameId, jdbcType=VARCHAR}
+            , #{gameName, jdbcType=VARCHAR}
+            , CURRENT_TIMESTAMP
+            , 'N'
+            <if test="img != null and img != ''">
+                , #{img, jdbcType=VARCHAR}
+            </if>
+        )
+    </insert>
+</mapper>
