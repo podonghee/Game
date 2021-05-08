@@ -60,7 +60,7 @@ public class BatchScheduling implements SchedulingConfigurer {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
             Date now = new Date();
             String strDate = sdf.format(now);
-            System.out.println("userSync cron job Execute:: " + strDate);
+            System.out.println("game Batch Start cron job Execute:: " + strDate);
             try {
                 BasicClass basicClass = (BasicClass)context.getBean(className);
                 adapter.setClassName(basicClass);

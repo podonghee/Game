@@ -25,7 +25,7 @@
             AND    GENRE = #{genre, jdbcType=VARCHAR}
         </if>
         <if test='null != serviceStatus and "" != serviceStatus  '>
-            AND    SERVICE_STATUS = #{serviceStatus}
+            AND    SERVICE_STATUS = #{serviceStatus, jdbcType=VARCHAR}
         </if>
         <if test='null != page'>
             LIMIT 	#{page.pageBegin, jdbcType=NUMERIC}
@@ -44,10 +44,27 @@
             </foreach>
         </if>
         <if test='null != genre and "" != genre'>
-            AND    GENRE = #{genre}
+            AND    GENRE = #{genre, jdbcType=VARCHAR}
         </if>
         <if test='null != serviceStatus and "" != serviceStatus'>
-            AND    SERVICE_STATUS = #{serviceStatus}
+            AND    SERVICE_STATUS = #{serviceStatus, jdbcType=VARCHAR}
         </if>
     </select>
+    <select id="getDetail" resultType="com.podong.game.module.game.bean.GameVO" statementType="PREPARED">
+        SELECT  GAME_ID AS gameId
+                , GAME_NAME  AS gameName
+                , PLATFORM AS platform
+                , GENRE AS genre
+                , PRODUCER AS producer
+                , PROVIDER AS provider
+                , USE_COUNT AS useCount
+                , YEAR_RELASE AS yearRelase
+                , IMG_URL AS img
+                , DESCRIPTION AS description
+                , COMPANY_CID AS companyCid
+        FROM    GM_GAME
+        WHERE   USE_YN = 'Y'
+        AND     GAME_ID = #{gameId, jdbcType=VARCHAR}
+    </select>
+
 </mapper>

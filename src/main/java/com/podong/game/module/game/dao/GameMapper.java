@@ -11,4 +11,5 @@ import java.util.List;
 public interface GameMapper {
     List<GameVO> getGameList(Object data);
     int getGameCntList(Object data);
+    List<GameVO> getDetail(Object data);
 }

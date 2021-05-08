@@ -45,4 +45,10 @@ public class GameModuleImpl implements GameModule {
         }
         return null;
     }
+
+    public Object gameDetail(Object data){
+        HashMap<String,Object> reqMap = (HashMap)data;
+
+        return gameMapper.getDetail(reqMap);
+    }
 }

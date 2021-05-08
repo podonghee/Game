@@ -16,6 +16,7 @@ public class GameVO extends PostFixVO {
     private String img; // 이미지
     private String useYn; // 사용여부
     private String serviceStatus; //서비스상태
+    private String companyCid; // 업체 아이디
 
 
 }

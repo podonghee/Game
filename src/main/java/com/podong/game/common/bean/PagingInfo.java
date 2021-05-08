@@ -10,8 +10,6 @@ import java.io.Serializable;
 public class PagingInfo implements Serializable {
     public long totalCount = 0L;
     public long totalElements = 0L;
-    public int pageNumber = 0;
-    public int pageSize = 0;
     private int PAGE_SCALE = 25;
     private int BLOCK_SCALE = 10;
     private int currentPage;
