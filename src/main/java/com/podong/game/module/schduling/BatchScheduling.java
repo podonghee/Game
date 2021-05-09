@@ -43,7 +43,7 @@ public class BatchScheduling implements SchedulingConfigurer {
     }
     @Scheduled(cron = "${batch.hs.rankTime}")
     public void gameRank() {
-        schduleStart("gameRankClass");
+        schduleStart("gameRankBatchClass");
     }
     @Scheduled(cron = "${batch.hs.time}")
     public void game() {

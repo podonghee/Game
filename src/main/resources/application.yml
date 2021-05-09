@@ -9,16 +9,17 @@ spring:
 
 mybatis:
   config-location: classpath*:mybatis-config.xml
-  data:
-    mongodb:
-      host: localhost
-      port: 27017
-      database: armsdb
+  #data:
+  #  mongodb:
+  #    host: localhost
+  #    port: 27017
+  #    database: armsdb
 #Upload 경로
 repository:
   upload: /Users/podonghi/upload
   uploadGameImg: /Users/podonghi/upload/images
   uploadCompanyImg: /Users/podonghi/upload/company/images
+  uploadRankImg: /Users/podonghi/upload/Rank/images
 crawling:
   gameUrl: https://www.gamemeca.com/game.php
   gameCompanyUrl: https://www.gamemeca.com/game.php?rts=company
@@ -26,8 +27,8 @@ crawling:
 
 batch:
   hs:
-    useYn: N
-    time: "* * * * * *"
+    useYn: Y
+    time: "* * 9 * * *"
     rankTime: "* * * * * *"
     doAuditTrail : false
   http:
