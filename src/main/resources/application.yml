@@ -27,7 +27,7 @@ crawling:
 
 batch:
   hs:
-    useYn: Y
+    useYn: N
     time: "* * 9 * * *"
     rankTime: "* * * * * *"
     doAuditTrail : false

@@ -18,9 +18,10 @@ public class GameModuleImpl implements GameModule {
     @Autowired
     private GameMapper gameMapper;
 
-    public Object gameSelectList(Object data) {
+    @Override
+    public Object se001(Object param) {
         try {
-            HashMap reqMap = (HashMap)data;
+            HashMap reqMap = (HashMap)param;
             HashMap<String, Object> resMap = new HashMap<String, Object>();
             List platformList = (List)reqMap.get("platform");
             if(platformList.size() == 0){
@@ -45,10 +46,14 @@ public class GameModuleImpl implements GameModule {
         }
         return null;
     }
-
-    public Object gameDetail(Object data){
-        HashMap<String,Object> reqMap = (HashMap)data;
-
+    @Override
+    public Object dt001(Object param) {
+        HashMap<String,Object> reqMap = (HashMap)param;
         return gameMapper.getDetail(reqMap);
+    }
+
+    @Override
+    public Object sa001(Object param) {
+        return null;
     }
 }

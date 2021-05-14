@@ -12,8 +12,10 @@ import org.springframework.stereotype.Service;
 public class GameMekaServiceImpl extends CommonService implements GameMekaService {
 
     enum ApplicationList{
-         game("gameModuleImpl")
-        ;
+        g001("gameModuleImpl")
+        , g002("gameCompanyModuleImpl")
+        ,g006("gameRankModuleImpl")
+                ;
         private String value;
         ApplicationList(String arg){
             this.value = arg;

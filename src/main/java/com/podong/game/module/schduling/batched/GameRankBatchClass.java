@@ -26,23 +26,61 @@ public class GameRankBatchClass extends BasicClass {
             Document doc = null;
             Elements elCnt = null;
             Elements gameRankList = null;
-
+            String iconStr = null;
+            int gameRankPast = 0;
             GameRankVO rankVo = new GameRankVO();
+            String gameId = null;
             for(int i=1; i <= 2103;i++) {
+                System.out.println("gameRankUrl : " + i+"");
                 doc = Jsoup.connect(gameRankUrl + i).get();
                 elCnt = doc.select("span[class=\"ranking-date\"]");
                 gameRankList = doc.select("table[class=\"ranking-table\"]");
                 String strYear = elCnt.text().substring(0,4);
                 String oneWeek = elCnt.text().replace(strYear+".","");
+                System.out.println("strYear : " +strYear);
+                System.out.println("oneWeek : " +oneWeek);
+                System.out.println("RankId : " +i);
+
                 rankVo.setGameRankYear(strYear);
-                rankVo.setGameRankOneweek(oneWeek);
+                rankVo.setGameRankOneWeek(oneWeek);
                 rankVo.setGameRankId(i);
 
-                //batchMapper.insertGameRank(rankVo);
+
+                batchMapper.insertGameRank(rankVo);
                 for (Element data : gameRankList) {
-                    for (Element list : data.select("tr > td")) {
-                        System.out.println(list.getElementsByClass("rank red").text());
-                        System.out.println(list.getElementsByClass("rankChange"));
+                    for (Element list : data.select("tr[class=\"ranking-table-rows\"]")) {
+                        System.out.println("gameName :" + list.getElementsByClass("game-name").text());
+                        gameId = batchMapper.getGameId(list.getElementsByClass("game-name").text());
+                        if(gameId == null) {
+                            break;
+                        }else{
+                            rankVo.setGameId(gameId);
+                        }
+                        rankVo.setGameRankCount(Integer.parseInt(list.getElementsByClass("rank").text()));
+                        rankVo.setGameRankImg(list.getElementsByClass("game-icon").attr("src"));
+                        iconStr = list.getElementsByClass("rankChange").html();
+                        list.getElementsByClass("rankChange");
+                        if(iconStr.contains("new")) {
+                            iconStr = "new";
+                        }
+                        else if(iconStr.contains("up")){
+                            gameRankPast = Integer.parseInt(list.getElementsByClass("rankChange").text());
+                            System.out.println("gameRankPast : " + gameRankPast);
+                            iconStr = "up";
+                            System.out.println("iconStr : " + iconStr);
+                        }
+                        else if(iconStr.contains("down")){
+                            gameRankPast = Integer.parseInt(list.getElementsByClass("rankChange").text());
+                            System.out.println("gameRankPast : " + gameRankPast);
+                            iconStr = "down";
+                            System.out.println("iconStr : " + iconStr);
+                        }
+                        else{
+                            iconStr = "";
+                        }
+                        rankVo.setGameRankStatus(iconStr);
+                        rankVo.setGameRankPast(gameRankPast);
+                        batchMapper.insertGameRankInfo(rankVo);
 
                     }
                 }

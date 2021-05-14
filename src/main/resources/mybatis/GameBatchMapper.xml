@@ -64,4 +64,51 @@
             </if>
         )
     </insert>
+    <select id="getGameId" resultType="java.lang.String">
+        SELECT GAME_ID
+        FROM   GM_GAME
+        WHERE  USE_YN ='Y'
+        AND    GAME_NAME =  #{gameName, jdbcType=VARCHAR}
+        GROUP
+        BY    GAME_NAME ,GAME_ID
+    </select>
+    <insert id="insertGameRank">
+        INSERT INTO GM_GAME_RANK (
+            GAME_RANK_ID
+            , GAME_RANK_YEAR
+            , GAME_RANK_ONEWEEK
+            , USE_YN
+            , INSERT_DATE
+        )
+        VALUES (
+            #{gameRankId, jdbcType=VARCHAR}
+            , #{gameRankYear, jdbcType=VARCHAR}
+            , #{gameRankOneWeek, jdbcType=VARCHAR}
+            , 'Y'
+            , CURRENT_TIMESTAMP
+        )
+    </insert>
+    <insert id="insertGameRankInfo">
+        INSERT INTO GM_GAME_RANK_INFO (
+        GAME_RANK_ID
+        , GAME_ID
+        , GAME_RANK_COUNT
+        , GAME_RANK_STATUS
+        , GAME_RANK_PAST
+        , GAME_RANK_IMG
+        , USE_YN
+        , INSERT_DATE
+        )
+        VALUES (
+        #{gameRankId, jdbcType=VARCHAR}
+        , #{gameId, jdbcType=VARCHAR}
+        , #{gameRankCount, jdbcType=NUMERIC}
+        , #{gameRankStatus, jdbcType=VARCHAR}
+        , #{gameRankPast, jdbcType=NUMERIC}
+        , #{gameRankImg, jdbcType=VARCHAR}
+        , 'Y'
+        , CURRENT_TIMESTAMP
+        )
+    </insert>
+
 </mapper>

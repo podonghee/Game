@@ -23,7 +23,9 @@ public interface BatchMapper {
     int insertGameCompany(Object data);
     List<GameCompanyVO>getCompanyTotalList();
     int updateGameCompany(Object data);
-
+    String getGameId(String gameName);
     //크롤링하여 게임랭킹 넣기
     int insertGameRank(Object data);
+
+    int insertGameRankInfo(Object data);
 }

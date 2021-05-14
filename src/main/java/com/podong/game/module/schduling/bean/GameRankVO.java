@@ -7,10 +7,10 @@ public class GameRankVO {
     private int gameRankId;
     private String gameId;
     private String gameRankYear;
-    private String gameRankOneweek;
+    private String gameRankOneWeek;
     private String useYn;
-    private String gameRankCount;
+    private int gameRankCount;
     private String gameRankStatus;
-    private String gameRankPast;
+    private int gameRankPast;
     private String gameRankImg;
 }
