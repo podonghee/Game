@@ -1,4 +1,4 @@
-package com.podong.game.module.gameCompany.dao;
+package com.podong.game.module.gamecompany.dao;
 
 
 import org.apache.ibatis.annotations.Mapper;

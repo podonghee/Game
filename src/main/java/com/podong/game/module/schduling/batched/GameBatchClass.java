@@ -60,7 +60,7 @@ public class GameBatchClass extends BasicClass {
                 //게임이미지 셋팅
                 vo.setImg(img.get(i).getAttribute("src"));
                 //이미지다운로드
-                imgDownload(vo.getImg(), vo.getGameName(), uploadGameUrl);
+                //imgDownload(vo.getImg(), vo.getGameName(), uploadGameUrl);
                 // GM_GAME Insert
                 batchMapper.insertGameCrawling(vo);
                 System.out.println("******  성공한 데이터 GAME_ID : "+ vo.getGameId() + " GAME_NAME : "+ vo.getGameName()+"  ******");

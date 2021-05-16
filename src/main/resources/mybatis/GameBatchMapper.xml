@@ -79,6 +79,7 @@
             , GAME_RANK_ONEWEEK
             , USE_YN
             , INSERT_DATE
+            , GAME_LEVEL
         )
         VALUES (
             #{gameRankId, jdbcType=VARCHAR}
@@ -86,6 +87,7 @@
             , #{gameRankOneWeek, jdbcType=VARCHAR}
             , 'Y'
             , CURRENT_TIMESTAMP
+            , #{gameLevel}
         )
     </insert>
     <insert id="insertGameRankInfo">

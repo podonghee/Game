@@ -1,4 +1,4 @@
-package com.podong.game.module.gameCompany.module;
+package com.podong.game.module.gamecompany.module;
 
 import com.podong.game.common.module.CommonModule;
 

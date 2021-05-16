@@ -1,6 +1,6 @@
-package com.podong.game.module.gameCompany.module.impl;
+package com.podong.game.module.gamecompany.module.impl;
 
-import com.podong.game.module.gameCompany.module.GameCompanyModule;
+import com.podong.game.module.gamecompany.module.GameCompanyModule;
 import org.springframework.stereotype.Component;
 
 @Component("gameCompanyModuleImpl")

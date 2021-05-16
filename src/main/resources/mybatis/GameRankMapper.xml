@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.podong.game.module.gamerank.dao.GameRankMapper">
+
+    <select id="getRankList" resultType="com.podong.game.module.gamerank.bean.GameRankInfoVO" statementType="PREPARED">
+        SELECT  A.GAME_RANK_ID AS gameRankId
+                , B.GAME_ID AS gameId
+                , B.GAME_RANK_COUNT AS gameRankCount
+                , B.GAME_RANK_PAST AS gameRankPast
+                , B.GAME_RANK_STATUS AS gameRankStatus
+                , B.GAME_RANK_IMG AS gameRankImg
+                , C.GAME_NAME AS gameName
+                , C.PLATFORM AS platform
+                , C.PRODUCER AS producer
+                , C.SERVICE_STATUS AS serviceStatus
+        FROM    GM_GAME_RANK A
+        INNER
+        JOIN    GM_GAME_RANK_INFO B
+        ON      A.GAME_RANK_ID = B.GAME_RANK_ID
+        INNER
+        JOIN    GM_GAME C
+        ON      C.GAME_ID = B.GAME_ID
+        WHERE   GAME_RANK_YEAR = #{rankYear}
+        AND     GAME_RANK_ONEWEEK =#{rankOneWeek}
+    </select>
+
+
+</mapper>

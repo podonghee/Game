@@ -13,4 +13,5 @@ public class GameRankVO {
     private String gameRankStatus;
     private int gameRankPast;
     private String gameRankImg;
+    private int gameLevel;
 }

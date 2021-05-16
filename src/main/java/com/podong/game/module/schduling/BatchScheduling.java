@@ -29,8 +29,6 @@ public class BatchScheduling implements SchedulingConfigurer {
     @Autowired
     private ApplicationContext context;
 
-
-
     @Override
     public void configureTasks(ScheduledTaskRegistrar scheduledTaskRegistrar) {
         ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
@@ -43,17 +41,17 @@ public class BatchScheduling implements SchedulingConfigurer {
     }
     @Scheduled(cron = "${batch.hs.rankTime}")
     public void gameRank() {
-        schduleStart("gameRankBatchClass");
+        scheduleStart("gameRankBatchClass");
     }
     @Scheduled(cron = "${batch.hs.time}")
     public void game() {
-        schduleStart("gameBatchClass");
+        scheduleStart("gameBatchClass");
     }
     @Scheduled(cron = "${batch.hs.time}")
     public void gameCompany() {
-        schduleStart("gameCompanyBatchClass");
+        scheduleStart("gameCompanyBatchClass");
     }
-    public void schduleStart(String className){
+    public void scheduleStart(String className){
         if("Y".equals(syncYn))
         {
             BatchClass adapter = new BatchClass();

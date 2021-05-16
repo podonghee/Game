@@ -6,15 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component("gameRankModuleImpl")
-public class GameRankModuleImpl implements GameRankModule{
+public class GameRankModuleImpl implements GameRankModule {
 
     @Autowired
     private GameRankMapper gameRankMapper;
-
     @Override
     public Object se001(Object param) {
 
-        return null;
+        return gameRankMapper.getRankList(param);
     }
 
     @Override

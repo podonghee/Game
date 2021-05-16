@@ -30,6 +30,7 @@ public class GameRankBatchClass extends BasicClass {
             int gameRankPast = 0;
             GameRankVO rankVo = new GameRankVO();
             String gameId = null;
+            int count = 0;
             for(int i=1; i <= 2103;i++) {
                 System.out.println("gameRankUrl : " + i+"");
                 doc = Jsoup.connect(gameRankUrl + i).get();
@@ -37,22 +38,26 @@ public class GameRankBatchClass extends BasicClass {
                 gameRankList = doc.select("table[class=\"ranking-table\"]");
                 String strYear = elCnt.text().substring(0,4);
                 String oneWeek = elCnt.text().replace(strYear+".","");
-                System.out.println("strYear : " +strYear);
-                System.out.println("oneWeek : " +oneWeek);
-                System.out.println("RankId : " +i);
 
                 rankVo.setGameRankYear(strYear);
                 rankVo.setGameRankOneWeek(oneWeek);
                 rankVo.setGameRankId(i);
-
+                rankVo.setGameLevel(i);
 
                 batchMapper.insertGameRank(rankVo);
+
                 for (Element data : gameRankList) {
                     for (Element list : data.select("tr[class=\"ranking-table-rows\"]")) {
-                        System.out.println("gameName :" + list.getElementsByClass("game-name").text());
-                        gameId = batchMapper.getGameId(list.getElementsByClass("game-name").text());
+                        count++;
+                        try{
+                            gameId = batchMapper.getGameId(list.getElementsByClass("game-name").text());
+                        }catch (Exception e){
+                            System.out.println(gameId);
+                            System.out.println(list.getElementsByClass("game-name").text());
+                            e.printStackTrace();
+                        }
                         if(gameId == null) {
-                            break;
+                            rankVo.setGameId("001");
                         }else{
                             rankVo.setGameId(gameId);
                         }
@@ -65,15 +70,11 @@ public class GameRankBatchClass extends BasicClass {
                         }
                         else if(iconStr.contains("up")){
                             gameRankPast = Integer.parseInt(list.getElementsByClass("rankChange").text());
-                            System.out.println("gameRankPast : " + gameRankPast);
                             iconStr = "up";
-                            System.out.println("iconStr : " + iconStr);
                         }
                         else if(iconStr.contains("down")){
                             gameRankPast = Integer.parseInt(list.getElementsByClass("rankChange").text());
-                            System.out.println("gameRankPast : " + gameRankPast);
                             iconStr = "down";
-                            System.out.println("iconStr : " + iconStr);
                         }
                         else{
                             iconStr = "";
@@ -84,6 +85,10 @@ public class GameRankBatchClass extends BasicClass {
 
                     }
                 }
+
+                System.out.println("strYear : "+ strYear + "oneWeek : "+
+                        oneWeek +" 총카운트 : " +count);
+                count = 0;
             }
         }catch (Exception e){
             e.printStackTrace();
