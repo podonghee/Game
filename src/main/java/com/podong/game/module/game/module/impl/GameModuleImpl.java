@@ -11,7 +11,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
+/**
+ * Author : po dong hee
+ * Date : 2021.05.11
+ * Description : 게임 DB 페이지
+ * */
 @Component("gameModuleImpl")
 public class GameModuleImpl implements GameModule {
 
