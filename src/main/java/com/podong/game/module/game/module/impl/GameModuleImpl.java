@@ -28,18 +28,23 @@ public class GameModuleImpl implements GameModule {
             HashMap reqMap = (HashMap)param;
             HashMap<String, Object> resMap = new HashMap<String, Object>();
             List platformList = (List)reqMap.get("platform");
-            if(platformList.size() == 0){
+            if(platformList.size() == 0)
+            {
                 reqMap.put("platform","");
             }
             int totalCnt = gameMapper.getGameCntList(reqMap);
             int currentPage;
-            if(null != reqMap.get( "page" )) {
+            int pageScale =0;
+            if(null != reqMap.get( "page" ))
+            {
                 currentPage = Integer.parseInt(((HashMap<String, Object>) reqMap.get("page")).get("currentPage").toString());
-            } else {
+                pageScale = Integer.parseInt(((HashMap<String, Object>) reqMap.get("page")).get("pageSize").toString());
+            }
+            else
+            {
                 currentPage = 0;
             }
-
-            PagingInfo pagingInfo = new PagingInfo(totalCnt, currentPage);
+            PagingInfo pagingInfo = new PagingInfo(totalCnt, currentPage,pageScale);
             reqMap.put("page", pagingInfo);
             resMap.put("list", gameMapper.getGameList(reqMap));
             resMap.put("page", pagingInfo);

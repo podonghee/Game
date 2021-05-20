@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class PagingInfo implements Serializable {
     public long totalCount = 0L;
     public long totalElements = 0L;
-    private int PAGE_SCALE = 25;
+    private int pageScale;
     private int BLOCK_SCALE = 10;
     private int currentPage;
     private int prevPage;
@@ -27,10 +27,11 @@ public class PagingInfo implements Serializable {
 
     public PagingInfo() {
     }
-    public PagingInfo(long count, int currentPage) {
+    public PagingInfo(long count, int currentPage,int pageScale) {
         this.curBlock = 1;
         this.currentPage = currentPage;
         this.totalElements = count;
+        this.pageScale = pageScale;
         this.setTotalPages(count);
         this.setPageRange();
         this.setTotBlock();
@@ -54,16 +55,17 @@ public class PagingInfo implements Serializable {
     }
 
     public void setPageRange() {
-        this.pageBegin = this.currentPage * this.PAGE_SCALE + 1;
-        this.pageEnd = this.pageBegin + this.PAGE_SCALE - 1;
+        this.pageBegin = this.currentPage * this.pageScale + 1;
+        this.pageEnd = this.pageBegin + this.pageScale - 1;
     }
 
-    public int getPAGE_SCALE() {
-        return this.PAGE_SCALE;
+    public int getPageScale() {
+        return pageScale;
     }
 
-    public void setPAGE_SCALE(int PAGE_SCALE) {
-        this.PAGE_SCALE = PAGE_SCALE;
+    public PagingInfo setPageScale(int pageScale) {
+        this.pageScale = pageScale;
+        return this;
     }
 
     public int getBLOCK_SCALE() {
@@ -103,7 +105,7 @@ public class PagingInfo implements Serializable {
     }
 
     public void setTotalPages(long count) {
-        this.totalPages = (int)Math.ceil((double)count * 1.0D / (double)this.PAGE_SCALE);
+        this.totalPages = (int)Math.ceil((double)count * 1.0D / (double)this.pageScale);
     }
 
     public int getTotBlock() {

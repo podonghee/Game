@@ -29,7 +29,7 @@
         </if>
         <if test='null != page'>
             LIMIT 	#{page.pageBegin, jdbcType=NUMERIC}
-            , #{page.PAGE_SCALE, jdbcType=NUMERIC}
+            , #{page.pageScale, jdbcType=NUMERIC}
         </if>
     </select>
     <select id="getGameCntList" resultType="int" statementType="PREPARED">
