@@ -138,6 +138,139 @@
                , #{gameCompanyImg, jdbcType=VARCHAR}
                )
     </insert>
+    <insert id="insertGameSshot">
+        INSERT INTO GM_GAME_SSHOT(
+                      GAME_URL
+                      , GAME_ID
+                    <if test="gameSshotImgUrl != null and gameSshotImgUrl != ''">
+                        , GAME_SSHOT_IMG_URL
+                    </if>
+                    <if test="description != null and description != ''">
+                        ,  DESCRIPTION
+                    </if>
+                      , USE_YN
+        )
+        VALUES (
+                   #{gameSshotUrl}
+                   , #{gameId}
+                    <if test="gameSshotImgUrl != null and gameSshotImgUrl != ''">
+                        , #{gameSshotImgUrl, jdbcType=VARCHAR}
+                    </if>
+                    <if test="description != null and description != ''">
+                        , #{description, jdbcType=VARCHAR}
+                    </if>
+                    , 'N'
+               )
+    </insert>
+    <insert id="insertTotalGameSshot">
+        INSERT INTO GM_GAME_SSHOT(
+        GAME_URL
+        , GAME_ID
+        <if test="gameSshotImgUrl != null and gameSshotImgUrl != ''">
+            , GAME_SSHOT_IMG_URL
+        </if>
+        <if test="description != null and description != ''">
+            ,  DESCRIPTION
+        </if>
+        , USE_YN
+        )
+        VALUES (
+        #{gameSshotUrl}
+        , #{gameId}
+        <if test="gameSshotImgUrl != null and gameSshotImgUrl != ''">
+            , #{gameSshotImgUrl, jdbcType=VARCHAR}
+        </if>
+        <if test="description != null and description != ''">
+            , #{description, jdbcType=VARCHAR}
+        </if>
+        , 'Y'
+        )
+    </insert>
+    <select id="getSelectShotList" resultType="com.podong.game.module.schduling.bean.GameSshotVO" statementType="PREPARED">
+        SELECT  GAME_URL AS gameSshotUrl
+                 , GAME_ID AS gameId
+        FROM    GM_GAME_SSHOT
+    </select>
+    <update id="updateGameSshot">
+        UPDATE GM_GAME_SSHOT
+        SET    GAME_SSHOT_IMG_URL = #{gameSshotImgUrl}
+               ,DESCRIPTION = #{description}
+               ,USE_YN ='Y'
+        WHERE GAME_ID = #{gameId, jdbcType=VARCHAR}
+    </update>
+    <delete id="deleteGameSshot">
+        DELETE FROM GM_GAME_SSHOT
+        WHERE  GAME_ID = #{gameId}
+        AND    USE_YN ='N'
+    </delete>
+
+    <insert id="insertGameVideo">
+        INSERT INTO GM_GAME_VIDEO(
+
+             GAME_URL
+             , GAME_ID
+        <if test="gameVideoImgUrl != null and gameVideoImgUrl != ''">
+            , GAME_VIDEO_IMG_URL
+        </if>
+        <if test="description != null and description != ''">
+            ,  DESCRIPTION
+        </if>
+            , USE_YN
+        )
+        VALUES (
+            #{gameVideoUrl}
+            , #{gameId}
+            <if test="gameVideoImgUrl != null and gameVideoImgUrl != ''">
+                , #{gameVideoImgUrl, jdbcType=VARCHAR}
+            </if>
+            <if test="description != null and description != ''">
+                , #{description, jdbcType=VARCHAR}
+            </if>
+            , 'N'
+        )
+    </insert>
+    <insert id="insertTotalGameVideo">
+        INSERT INTO GM_GAME_VIDEO(
+            GAME_URL
+            , GAME_ID
+        <if test="gameVideoImgUrl != null and gameVideoImgUrl != ''">
+            , GAME_VIDEO_IMG_URL
+        </if>
+        <if test="description != null and description != ''">
+            ,  DESCRIPTION
+        </if>
+            , USE_YN
+        )
+        VALUES (
+            #{gameVideoUrl}
+            , #{gameId}
+            <if test="gameVideoImgUrl != null and gameVideoImgUrl != ''">
+                , #{gameVideoImgUrl, jdbcType=VARCHAR}
+            </if>
+            <if test="description != null and description != ''">
+                , #{description, jdbcType=VARCHAR}
+            </if>
+            , 'Y'
+        )
+    </insert>
+    <select id="getSelectVideoList" resultType="com.podong.game.module.schduling.bean.GameVideoVO" statementType="PREPARED">
+        SELECT  GAME_URL AS gameVideoUrl
+             , GAME_ID AS gameId
+        FROM    GM_GAME_VIDEO
+    </select>
+    <update id="updateGameVideo">
+        UPDATE GM_GAME_VIDEO
+        SET    GAME_VIDEO_IMG_URL = #{gameVideoImgUrl}
+          ,DESCRIPTION = #{description}
+          ,USE_YN ='Y'
+        WHERE GAME_ID = #{gameId, jdbcType=VARCHAR}
+    </update>
+    <delete id="deleteGameVideo">
+        DELETE FROM GM_GAME_VIDEO
+        WHERE  GAME_ID = #{gameId}
+          AND    USE_YN ='N'
+    </delete>
+
     <update id="updateGameCompany">
         UPDATE GM_GAME_COMPANY
         SET    USE_YN = 'Y'

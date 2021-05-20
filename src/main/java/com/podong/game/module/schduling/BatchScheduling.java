@@ -39,18 +39,27 @@ public class BatchScheduling implements SchedulingConfigurer {
 
         scheduledTaskRegistrar.setTaskScheduler(threadPoolTaskScheduler);
     }
-    @Scheduled(cron = "${batch.hs.rankTime}")
+    //@Scheduled(cron = "${batch.hs.rankTime}")
     public void gameRank() {
         scheduleStart("gameRankBatchClass");
     }
-    @Scheduled(cron = "${batch.hs.time}")
+    //@Scheduled(cron = "${batch.hs.time}")
     public void game() {
         scheduleStart("gameBatchClass");
     }
-    @Scheduled(cron = "${batch.hs.time}")
+    //@Scheduled(cron = "${batch.hs.time}")
     public void gameCompany() {
         scheduleStart("gameCompanyBatchClass");
     }
+    //@Scheduled(cron = "${batch.hs.time}")
+    public void gameSshot() {
+        scheduleStart("gameSshotBatchClass");
+    }
+    @Scheduled(cron = "${batch.hs.time}")
+    public void gameVedio() {
+        scheduleStart("gameVedioBatchClass");
+    }
+
     public void scheduleStart(String className){
         if("Y".equals(syncYn))
         {

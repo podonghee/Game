@@ -5,9 +5,9 @@
 
 <mapper namespace="com.podong.game.module.gamecompany.dao.GameCompanyMapper">
     <select id="getGameCompanyList" resultType="com.podong.game.module.gamecompany.bean.GameCompanyInfoVO" statementType="PREPARED">
-        SELECT  GAME_COMPANY_CID AS gameCompanyCid
-                , GAME_COMPANY_NAME AS gameCompanyName
-                , GAME_COMPANY_IMG AS gameCompanyImg
+        SELECT  CM.GAME_COMPANY_CID AS gameCompanyCid
+                , CM.GAME_COMPANY_NAME AS gameCompanyName
+                , CM.GAME_COMPANY_IMG AS gameCompanyImg
                 , (
                     SELECT COUNT(GM.GAME_ID)
                     FROM   GM_GAME GM
@@ -21,11 +21,19 @@
                     AND    GM.USE_YN='Y'
                   ) AS gameServiceCnt
         FROM    GM_GAME_COMPANY CM
-        WHERE   USE_YN = 'Y'
+        WHERE   CM.USE_YN = 'Y'
         <if test='null != keyword and "" != keyword  '>
-            AND  GAME_COMPANY_NAME LIKE ('%'|| #{keyword} ||'%')
+            AND  CM.GAME_COMPANY_NAME LIKE CONCAT('%',#{keyword},'%')
         </if>
-        ORDER BY INSERT_DATE DESC
+        <choose>
+            <when test =' "cn_1" == rankNst'>
+                ORDER BY CM.INSERT_DATE DESC
+            </when>
+            <otherwise>
+                ORDER BY CM.GAME_COMPANY_NAME
+            </otherwise>
+        </choose>
+
         <if test='null != page'>
             LIMIT 	#{page.pageBegin, jdbcType=NUMERIC}
             , #{page.pageScale, jdbcType=NUMERIC}
@@ -36,7 +44,7 @@
         FROM    GM_GAME_COMPANY
         WHERE   USE_YN = 'Y'
         <if test='null != keyword and "" != keyword  '>
-            AND  GAME_COMPANY_NAME LIKE ('%'|| #{keyword} ||'%')
+            AND  GAME_COMPANY_NAME LIKE CONCAT('%',#{keyword},'%')
         </if>
     </select>
     <resultMap id="gameCompanyList" type="com.podong.game.module.gamecompany.bean.GameCompanyInfoVO">

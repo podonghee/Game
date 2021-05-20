@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.List;
 
-@Component("gameBatchAdptee")
+@Component("gameBatchClass")
 public class GameBatchClass extends BasicClass {
     @Value("${repository.uploadGameImg}")
     private String uploadGameUrl;

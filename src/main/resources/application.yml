@@ -2,10 +2,10 @@ spring:
   profiles:
     active: dev
   datasource:
-    url: jdbc:log4jdbc:mariadb://localhost:3306/podong?allowPublicKeyRetrieval=true&useSSL=false
-    #url: jdbc:mariadb://localhost:3306/podong?allowPublicKeyRetrieval=true&useSSL=false
-    #driver-class-name: org.mariadb.jdbc.Driver
-    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    #url: jdbc:log4jdbc:mariadb://localhost:3306/podong?allowPublicKeyRetrieval=true&useSSL=false
+    url: jdbc:mariadb://localhost:3306/podong?allowPublicKeyRetrieval=true&useSSL=false
+    driver-class-name: org.mariadb.jdbc.Driver
+    #driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
     username: podong
     password: 1234
 
@@ -26,11 +26,12 @@ crawling:
   gameUrl: https://www.gamemeca.com/game.php
   gameCompanyUrl: https://www.gamemeca.com/game.php?rts=company
   gameRankUrl: https://www.gamemeca.com/ranking.php?rid=
-
+  gameSshotUrl : https://www.gamemeca.com/game.php?rts=sshot&p=
+  gameVedioUrl : https://www.gamemeca.com/game.php?rts=movie&p=
 batch:
   hs:
-    useYn: N
-    time: "* * 9 * * *"
+    useYn: Y
+    time: "* * * * * *"
     rankTime: "* * * * * *"
     doAuditTrail : false
   http:

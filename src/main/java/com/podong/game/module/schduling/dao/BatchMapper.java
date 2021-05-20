@@ -2,6 +2,8 @@ package com.podong.game.module.schduling.dao;
 
 import com.podong.game.module.schduling.bean.GameCompanyVO;
 import com.podong.game.module.schduling.bean.GameDataVO;
+import com.podong.game.module.schduling.bean.GameSshotVO;
+import com.podong.game.module.schduling.bean.GameVideoVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -28,4 +30,17 @@ public interface BatchMapper {
     int insertGameRank(Object data);
 
     int insertGameRankInfo(Object data);
+
+    int insertGameSshot(Object data);
+    int insertTotalGameSshot(Object data);
+    List<GameSshotVO> getSelectShotList();
+    int updateGameSshot(Object data);
+    int deleteGameSshot(Object data);
+
+
+    int insertGameVideo(Object data);
+    int insertTotalGameVideo(Object data);
+    List<GameVideoVO> getSelectVideoList();
+    int updateGameVideo(Object data);
+    int deleteGameVideo(Object data);
 }

@@ -27,6 +27,9 @@
         <if test='null != serviceStatus and "" != serviceStatus  '>
             AND    SERVICE_STATUS = #{serviceStatus, jdbcType=VARCHAR}
         </if>
+        <if test='null != keyword and "" != keyword  '>
+            AND  GAME_NAME LIKE CONCAT('%',#{keyword},'%')
+        </if>
         <if test='null != page'>
             LIMIT 	#{page.pageBegin, jdbcType=NUMERIC}
             , #{page.pageScale, jdbcType=NUMERIC}
@@ -48,6 +51,9 @@
         </if>
         <if test='null != serviceStatus and "" != serviceStatus'>
             AND    SERVICE_STATUS = #{serviceStatus, jdbcType=VARCHAR}
+        </if>
+        <if test='null != keyword and "" != keyword  '>
+            AND  GAME_NAME LIKE CONCAT('%',#{keyword},'%')
         </if>
     </select>
     <select id="getDetail" resultType="com.podong.game.module.game.bean.GameVO" statementType="PREPARED">

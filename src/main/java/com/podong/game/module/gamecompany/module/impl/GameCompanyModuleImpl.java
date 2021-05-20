@@ -36,9 +36,11 @@ public class GameCompanyModuleImpl implements GameCompanyModule {
             }
 
             PagingInfo pagingInfo = new PagingInfo(totalCnt, currentPage,pageScale);
+            resMap.put("page", pagingInfo);
+            pagingInfo.setPageBegin(pagingInfo.getPageBegin()-1);
             reqMap.put("page", pagingInfo);
             resMap.put("list", gameCompanyMapper.getGameCompanyList(reqMap));
-            resMap.put("page", pagingInfo);
+
             return resMap;
         }
         catch (Exception e){

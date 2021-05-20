@@ -45,9 +45,11 @@ public class GameModuleImpl implements GameModule {
                 currentPage = 0;
             }
             PagingInfo pagingInfo = new PagingInfo(totalCnt, currentPage,pageScale);
+            resMap.put("page", pagingInfo);
+            pagingInfo.setPageBegin(pagingInfo.getPageBegin()-1);
             reqMap.put("page", pagingInfo);
             resMap.put("list", gameMapper.getGameList(reqMap));
-            resMap.put("page", pagingInfo);
+
             return resMap;
         }
         catch (Exception e){
