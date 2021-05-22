@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.podong.game.module.gamesshot.dao.GameSshotMapper">
+
+    <select id="getGameSshotList" resultType="java.util.HashMap" statementType="PREPARED">
+        SELECT B.GAME_ID AS gameId
+               , B.GAME_NAME AS gameName
+               , MAX(A.GAME_SSHOT_IMG_URL) AS gameSshotImgUrl
+               , B.PLATFORM AS platform
+               , B.GENRE AS genre
+        FROM   GM_GAME_SSHOT A
+        INNER
+        JOIN   GM_GAME B
+        ON     A.GAME_ID = B.GAME_ID
+        WHERE  A.USE_YN = 'Y'
+        AND    B.USE_YN = 'Y'
+        <if test='null != platform and "" != platform  '>
+            AND B.PLATFORM = #{platform, jdbcType=VARCHAR}
+        </if>
+        GROUP
+        BY     B.GAME_ID
+        <if test='null != page'>
+            LIMIT 	#{page.pageBegin, jdbcType=NUMERIC}
+            , #{page.pageScale, jdbcType=NUMERIC}
+        </if>
+    </select>
+    <select id="getGameSshotCnt" resultType="int" statementType="PREPARED">
+        SELECT COUNT(A.GAME_ID)
+        FROM (
+                SELECT B.GAME_ID FROM GM_GAME_SSHOT A
+                INNER JOIN GM_GAME B
+                ON A.GAME_ID = B.GAME_ID
+                WHERE  A.USE_YN = 'Y'
+                AND    B.USE_YN = 'Y'
+                <if test='null != platform and "" != platform  '>
+                    AND B.PLATFORM = #{platform, jdbcType=VARCHAR}
+                </if>
+                GROUP BY B.GAME_ID
+             ) A
+    </select>
+
+
+</mapper>

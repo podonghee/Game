@@ -14,6 +14,8 @@ public class GameMekaServiceImpl extends CommonService implements GameMekaServic
     enum ApplicationList{
         g001("gameModuleImpl")
         , g002("gameCompanyModuleImpl")
+        , g004("gameSshotModuleImpl")
+        , g005("gameVideoModuleImpl")
         ,g006("gameRankModuleImpl")
         ;
         private String value;
