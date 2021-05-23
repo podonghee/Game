@@ -13,9 +13,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component("gameVedioBatchClass")
-public class GameVideoClass extends BasicClass {
-    @Value("${crawling.gameVedioUrl}")
+@Component("gameVideoBatchClass")
+public class GameVideoBatchClass extends BasicClass {
+    @Value("${crawling.gameVideoUrl}")
     private String gameVedioUrl;
     @Autowired
     private BatchMapper batchMapper;

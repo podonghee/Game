@@ -43,4 +43,8 @@ public interface BatchMapper {
     List<GameVideoVO> getSelectVideoList();
     int updateGameVideo(Object data);
     int deleteGameVideo(Object data);
+
+    int insertSsohtInfo(Object data);
+
+    int insertGameTarget(Object data);
 }

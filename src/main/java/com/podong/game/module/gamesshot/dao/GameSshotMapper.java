@@ -11,4 +11,8 @@ import java.util.List;
 public interface GameSshotMapper {
     List<HashMap<String,Object>> getGameSshotList(Object data);
     int getGameSshotCnt(Object data);
+
+    List<HashMap<String,Object>> getDetailSshotList(Object data);
+    int getDetailSshotCnt(Object data);
+
 }

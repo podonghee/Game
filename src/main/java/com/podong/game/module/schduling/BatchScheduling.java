@@ -51,13 +51,17 @@ public class BatchScheduling implements SchedulingConfigurer {
     public void gameCompany() {
         scheduleStart("gameCompanyBatchClass");
     }
-    //@Scheduled(cron = "${batch.hs.time}")
+    @Scheduled(cron = "${batch.hs.time}")
     public void gameSshot() {
         scheduleStart("gameSshotBatchClass");
     }
-    @Scheduled(cron = "${batch.hs.time}")
-    public void gameVedio() {
-        scheduleStart("gameVedioBatchClass");
+    //@Scheduled(cron = "${batch.hs.time}")
+    public void gameVideo() {
+        scheduleStart("gameVideoBatchClass");
+    }
+    //@Scheduled(cron = "${batch.hs.time}")
+    public void gameAttack() {
+        scheduleStart("gameAttackBatchClass");
     }
 
     public void scheduleStart(String className){

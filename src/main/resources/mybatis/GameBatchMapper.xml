@@ -186,11 +186,38 @@
         , 'Y'
         )
     </insert>
+    <insert id="insertSsohtInfo">
+        INSERT INTO GM_GAME_SSHOT_INFO(
+            GAME_SSHOT_ID
+            , GAME_SSHOT_IMG
+            , GAME_GROUP_ID
+        )
+        VALUES (
+            #{gameSshotId}
+            , #{gameSshotImg}
+            , #{gameGroupId}
+        )
+    </insert>
+    <insert id="insertGameTarget">
+        INSERT INTO GM_GAME_TARGET(
+            GAME_TARGET_ID
+            , GAME_GROUP_ID
+            , REFERENCE_TYPE
+        )
+        VALUES (
+               #{gameTargetId}
+               , #{gameGroupId}
+               , #{referenceType}
+               )
+    </insert>
     <select id="getSelectShotList" resultType="com.podong.game.module.schduling.bean.GameSshotVO" statementType="PREPARED">
         SELECT  GAME_URL AS gameSshotUrl
                  , GAME_ID AS gameId
+                 , GAME_SSHOT_ID AS gameSshotId
         FROM    GM_GAME_SSHOT
+        WHERE USE_YN ='N'
     </select>
+
     <update id="updateGameSshot">
         UPDATE GM_GAME_SSHOT
         SET    GAME_SSHOT_IMG_URL = #{gameSshotImgUrl}

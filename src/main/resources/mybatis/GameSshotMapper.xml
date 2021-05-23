@@ -41,6 +41,24 @@
                 GROUP BY B.GAME_ID
              ) A
     </select>
+    <select id="getDetailSshotList" resultType="java.util.HashMap" statementType="PREPARED">
+        SELECT  A.GAME_ID AS gameId
+                , A.GAME_SSHOT_IMG_URL AS gameSshotImgUrl
+                , A.DESCRIPTION AS description
+        FROM    GM_GAME_SSHOT A
+        WHERE   A.USE_YN = 'Y'
+        AND     A.GAME_ID = #{gameId, jdbcType=VARCHAR}
+        <if test='null != page'>
+            LIMIT 	#{page.pageBegin, jdbcType=NUMERIC}
+            , #{page.pageScale, jdbcType=NUMERIC}
+        </if>
+    </select>
+    <select id="getDetailSshotCnt" resultType="int" statementType="PREPARED">
+        SELECT  COUNT(*)
+        FROM    GM_GAME_SSHOT A
+        WHERE   A.USE_YN = 'Y'
+        AND     A.GAME_ID = #{gameId, jdbcType=VARCHAR}
+    </select>
 
 
 </mapper>
