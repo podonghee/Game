@@ -15,4 +15,7 @@ public interface GameSshotMapper {
     List<HashMap<String,Object>> getDetailSshotList(Object data);
     int getDetailSshotCnt(Object data);
 
+
+    List<HashMap<String,Object>> getDetailToList(Object data);
+
 }

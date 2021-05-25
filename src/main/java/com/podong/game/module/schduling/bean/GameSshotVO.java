@@ -4,10 +4,13 @@ import com.podong.game.common.bean.PostFixVO;
 import lombok.Data;
 
 @Data
-public class GameSshotVO extends gameTargetVO {
+public class GameSshotVO  {
     private String gameId;
     private String gameSshotUrl;   // 게임메카 업체고유번호
     private String gameSshotImgUrl; // 이미지 url
-    private String gameSshotId;
+    private int gameSshotId;
     private String gameSshotImg; // 스샷 이미지 인포 에 저장
+    private String description; // 설명
+    private int gameGroupId; //groupId
+    private int gameParentGroupId; // 그룹 상위 id
 }

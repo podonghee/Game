@@ -164,51 +164,31 @@
     </insert>
     <insert id="insertTotalGameSshot">
         INSERT INTO GM_GAME_SSHOT(
-        GAME_URL
-        , GAME_ID
-        <if test="gameSshotImgUrl != null and gameSshotImgUrl != ''">
-            , GAME_SSHOT_IMG_URL
-        </if>
-        <if test="description != null and description != ''">
-            ,  DESCRIPTION
-        </if>
-        , USE_YN
+             GAME_ID
+            <if test="gameSshotImgUrl != null and gameSshotImgUrl != ''">
+                , GAME_SSHOT_IMG_URL
+            </if>
+            <if test="description != null and description != ''">
+                ,  DESCRIPTION
+            </if>
+            <if test="gameParentGroupId != null and gameParentGroupId != ''">
+                , GAME_PARENT_SSHOT_ID
+            </if>
+            , USE_YN
         )
         VALUES (
-        #{gameSshotUrl}
-        , #{gameId}
-        <if test="gameSshotImgUrl != null and gameSshotImgUrl != ''">
-            , #{gameSshotImgUrl, jdbcType=VARCHAR}
-        </if>
-        <if test="description != null and description != ''">
-            , #{description, jdbcType=VARCHAR}
-        </if>
-        , 'Y'
+             #{gameId}
+            <if test="gameSshotImgUrl != null and gameSshotImgUrl != ''">
+                , #{gameSshotImgUrl, jdbcType=VARCHAR}
+            </if>
+            <if test="description != null and description != ''">
+                , #{description, jdbcType=VARCHAR}
+            </if>
+            <if test="gameParentGroupId != null and gameParentGroupId != ''">
+                , #{gameParentGroupId, jdbcType=VARCHAR}
+            </if>
+            , 'Y'
         )
-    </insert>
-    <insert id="insertSsohtInfo">
-        INSERT INTO GM_GAME_SSHOT_INFO(
-            GAME_SSHOT_ID
-            , GAME_SSHOT_IMG
-            , GAME_GROUP_ID
-        )
-        VALUES (
-            #{gameSshotId}
-            , #{gameSshotImg}
-            , #{gameGroupId}
-        )
-    </insert>
-    <insert id="insertGameTarget">
-        INSERT INTO GM_GAME_TARGET(
-            GAME_TARGET_ID
-            , GAME_GROUP_ID
-            , REFERENCE_TYPE
-        )
-        VALUES (
-               #{gameTargetId}
-               , #{gameGroupId}
-               , #{referenceType}
-               )
     </insert>
     <select id="getSelectShotList" resultType="com.podong.game.module.schduling.bean.GameSshotVO" statementType="PREPARED">
         SELECT  GAME_URL AS gameSshotUrl

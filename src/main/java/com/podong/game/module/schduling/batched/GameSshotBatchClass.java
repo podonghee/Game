@@ -1,12 +1,9 @@
 package com.podong.game.module.schduling.batched;
-
-import com.podong.game.module.schduling.bean.GameDataVO;
 import com.podong.game.module.schduling.bean.GameSshotVO;
 import com.podong.game.module.schduling.dao.BatchMapper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -62,16 +59,13 @@ public class GameSshotBatchClass extends BasicClass {
                 if(list.select("li").size() > 1)
                 {
                     batchMapper.deleteGameSshot(shvo);
-                    batchMapper.insertTotalGameSshot(shvo);
+                    batchMapper.insertGameSshot(shvo);
                 }
                 else
                 {
                     batchMapper.updateGameSshot(shvo);
                 }
-                shvo.setGameTargetId(shvo.getGameSshotId());
-                shvo.setGameGroupId(i);
-                shvo.setReferenceType("Sshot");
-                batchMapper.insertGameTarget(shvo);
+                //shvo.setGameGroupId(i);
                 gid = shvo.getGameId();
                 gmid = list.select("a").attr("data-gid");
                 webUrl = "https://www.gamemeca.com/game.php"+"?rts=gmview&gmid=" + gid + "&tab=sshot&gid=" + gmid;
@@ -94,8 +88,12 @@ public class GameSshotBatchClass extends BasicClass {
             webElements = driver.findElements(By.cssSelector("#layer-header-ul > li"));
             for (WebElement wel : webElements) {
                 imgListUrl = wel.findElement(By.cssSelector("img")).getAttribute("src");
-                shvo.setGameSshotImg(imgListUrl);
-                batchMapper.insertSsohtInfo(shvo);
+                shvo.setGameSshotImgUrl(imgListUrl);
+                shvo.setGameParentGroupId(shvo.getGameSshotId());
+                shvo.setDescription("");
+                shvo.setGameSshotUrl("");
+
+                batchMapper.insertTotalGameSshot(shvo);
                 dataGid = webElements.get(0).findElement(By.cssSelector("a")).getAttribute("data-idx");
             }
             liSize = webElements.size();
@@ -121,7 +119,9 @@ public class GameSshotBatchClass extends BasicClass {
                 if (webElements.size() < 5) {
                     for (WebElement wel : webElements) {
                         imgListUrl = wel.findElement(By.cssSelector("img")).getAttribute("src");
-                        shvo.setGameSshotImg(imgListUrl);
+                        shvo.setGameSshotImgUrl(imgListUrl);
+                        shvo.setGameParentGroupId(shvo.getGameSshotId());
+                        shvo.setDescription("");
                         batchMapper.insertSsohtInfo(shvo);
                     }
                     flag = false;

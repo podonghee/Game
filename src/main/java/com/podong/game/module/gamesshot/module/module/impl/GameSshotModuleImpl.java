@@ -77,6 +77,19 @@ public class GameSshotModuleImpl implements GameSshotModule {
         }
         return null;
     }
+    public Object dt002(Object param) {
+        try {
+            HashMap reqMap = (HashMap)param;
+            HashMap<String, Object> resMap = new HashMap<String, Object>();
+            resMap.put("list", gameSshotMapper.getDetailToList(reqMap));
+            return resMap;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @Override
     public Object sa001(Object param) {
         return null;
