@@ -10,4 +10,7 @@ import java.util.List;
 public interface GameVideoMapper {
     List<HashMap<String,Object>> getGameVideoList(Object data);
     int getGameVideoCnt(Object data);
+    List<HashMap<String,Object>> getDetailVideoList(Object data);
+    int getDetailVideoCnt(Object data);
+    List<HashMap<String,Object>> getDetailToList(Object data);
 }

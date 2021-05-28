@@ -171,7 +171,7 @@
             <if test="description != null and description != ''">
                 ,  DESCRIPTION
             </if>
-            <if test="gameParentGroupId != null and gameParentGroupId != ''">
+            <if test="gameParentSshotId != null and gameParentSshotId != ''">
                 , GAME_PARENT_SSHOT_ID
             </if>
             , USE_YN
@@ -184,8 +184,8 @@
             <if test="description != null and description != ''">
                 , #{description, jdbcType=VARCHAR}
             </if>
-            <if test="gameParentGroupId != null and gameParentGroupId != ''">
-                , #{gameParentGroupId, jdbcType=VARCHAR}
+            <if test="gameParentSshotId != null and gameParentSshotId != ''">
+                , #{gameParentSshotId}
             </if>
             , 'Y'
         )
@@ -213,9 +213,8 @@
 
     <insert id="insertGameVideo">
         INSERT INTO GM_GAME_VIDEO(
-
-             GAME_URL
-             , GAME_ID
+           GAME_URL
+           , GAME_ID
         <if test="gameVideoImgUrl != null and gameVideoImgUrl != ''">
             , GAME_VIDEO_IMG_URL
         </if>
@@ -225,15 +224,15 @@
             , USE_YN
         )
         VALUES (
-            #{gameVideoUrl}
-            , #{gameId}
-            <if test="gameVideoImgUrl != null and gameVideoImgUrl != ''">
-                , #{gameVideoImgUrl, jdbcType=VARCHAR}
-            </if>
-            <if test="description != null and description != ''">
-                , #{description, jdbcType=VARCHAR}
-            </if>
-            , 'N'
+          #{gameVideoUrl}
+          , #{gameId}
+          <if test="gameVideoImgUrl != null and gameVideoImgUrl != ''">
+              , #{gameVideoImgUrl, jdbcType=VARCHAR}
+          </if>
+          <if test="description != null and description != ''">
+              , #{description, jdbcType=VARCHAR}
+          </if>
+          , 'N'
         )
     </insert>
     <insert id="insertTotalGameVideo">
@@ -246,6 +245,9 @@
         <if test="description != null and description != ''">
             ,  DESCRIPTION
         </if>
+        <if test="gameParentVideoId != null and gameParentVideoId != ''">
+            , GAME_PARENT_VIDEO_ID
+        </if>
             , USE_YN
         )
         VALUES (
@@ -257,25 +259,31 @@
             <if test="description != null and description != ''">
                 , #{description, jdbcType=VARCHAR}
             </if>
+            <if test="gameParentVideoId != null and gameParentVideoId != ''">
+                , #{gameParentVideoId}
+            </if>
             , 'Y'
         )
     </insert>
     <select id="getSelectVideoList" resultType="com.podong.game.module.schduling.bean.GameVideoVO" statementType="PREPARED">
         SELECT  GAME_URL AS gameVideoUrl
-             , GAME_ID AS gameId
+                , GAME_ID AS gameId
+                , GAME_VIDEO_ID AS gameVideoId
         FROM    GM_GAME_VIDEO
+        WHERE   USE_YN ='N'
     </select>
     <update id="updateGameVideo">
         UPDATE GM_GAME_VIDEO
         SET    GAME_VIDEO_IMG_URL = #{gameVideoImgUrl}
-          ,DESCRIPTION = #{description}
-          ,USE_YN ='Y'
-        WHERE GAME_ID = #{gameId, jdbcType=VARCHAR}
+               , GAME_VIDEO_TITLE = #{gameVideoTitle}
+               , USE_YN ='Y'
+        WHERE  GAME_ID = #{gameId, jdbcType=VARCHAR}
     </update>
     <delete id="deleteGameVideo">
-        DELETE FROM GM_GAME_VIDEO
+        DELETE
+        FROM   GM_GAME_VIDEO
         WHERE  GAME_ID = #{gameId}
-          AND    USE_YN ='N'
+        AND    USE_YN ='N'
     </delete>
 
     <update id="updateGameCompany">

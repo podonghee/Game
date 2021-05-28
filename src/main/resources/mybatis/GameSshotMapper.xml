@@ -31,11 +31,14 @@
     <select id="getGameSshotCnt" resultType="int" statementType="PREPARED">
         SELECT COUNT(A.GAME_ID)
         FROM (
-                SELECT B.GAME_ID FROM GM_GAME_SSHOT A
-                INNER JOIN GM_GAME B
-                ON A.GAME_ID = B.GAME_ID
+                SELECT B.GAME_ID
+                FROM   GM_GAME_SSHOT A
+                INNER
+                JOIN   GM_GAME B
+                ON     A.GAME_ID = B.GAME_ID
                 WHERE  A.USE_YN = 'Y'
                 AND    B.USE_YN = 'Y'
+                AND    A.GAME_PARENT_SSHOT_ID IS NULL
                 <if test='null != platform and "" != platform  '>
                     AND B.PLATFORM = #{platform, jdbcType=VARCHAR}
                 </if>
@@ -66,36 +69,36 @@
     <select id="getDetailToList" resultType="java.util.HashMap" statementType="PREPARED">
         WITH RECURSIVE CTE as (
             SELECT 1 AS LEVEL
-                 , GAME_SSHOT_ID
-                 , GAME_PARENT_SSHOT_ID
-                 , GAME_ID
-                 , GAME_SSHOT_IMG_URL
-                 , DESCRIPTION
+                   , GAME_SSHOT_ID
+                   , GAME_PARENT_SSHOT_ID
+                   , GAME_ID
+                   , GAME_SSHOT_IMG_URL
+                   , DESCRIPTION
             FROM   GM_GAME_SSHOT
             WHERE  GAME_PARENT_SSHOT_ID IS NULL
-              AND    USE_YN= 'Y'
-              AND   GAME_ID ='g0010290'
+            AND    USE_YN= 'Y'
+            AND    GAME_ID =#{gameId, jdbcType=VARCHAR}
             UNION ALL
             SELECT 1 + LEVEL AS LEVEL
-                 , A.GAME_SSHOT_ID
-                 , A.GAME_PARENT_SSHOT_ID
-                 , A.GAME_ID
-                 , A.GAME_SSHOT_IMG_URL
-                 , A.DESCRIPTION
+                   , A.GAME_SSHOT_ID
+                   , A.GAME_PARENT_SSHOT_ID
+                   , A.GAME_ID
+                   , A.GAME_SSHOT_IMG_URL
+                   , A.DESCRIPTION
             FROM   GM_GAME_SSHOT A
-                       INNER
-                           JOIN  CTE B
-                                 ON    A.GAME_PARENT_SSHOT_ID = B.GAME_SSHOT_ID
-            WHERE A.USE_YN= 'Y'
-              AND   A.GAME_ID ='g0010290'
+            INNER
+            JOIN   CTE B
+            ON     A.GAME_PARENT_SSHOT_ID = B.GAME_SSHOT_ID
+            WHERE  A.USE_YN= 'Y'
+            AND    A.GAME_ID = #{gameId, jdbcType=VARCHAR}
         )
         SELECT LEVEL AS levelNo
-             , GAME_SSHOT_ID AS gameSshotId
-             , GAME_PARENT_SSHOT_ID AS gameParentSshotId
-             , GAME_ID  AS gameId
-             , GAME_SSHOT_IMG_URL AS gameSshotImgUrl
-             , DESCRIPTION  AS description
-        FROM CTE
+               , GAME_SSHOT_ID AS gameSshotId
+               , GAME_PARENT_SSHOT_ID AS gameParentSshotId
+               , GAME_ID  AS gameId
+               , GAME_SSHOT_IMG_URL AS gameSshotImgUrl
+               , DESCRIPTION  AS description
+        FROM   CTE
     </select>
 
 </mapper>

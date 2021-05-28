@@ -11,6 +11,5 @@ public class GameSshotVO  {
     private int gameSshotId;
     private String gameSshotImg; // 스샷 이미지 인포 에 저장
     private String description; // 설명
-    private int gameGroupId; //groupId
-    private int gameParentGroupId; // 그룹 상위 id
+    private int gameParentSshotId; // 그룹 상위 id
 }

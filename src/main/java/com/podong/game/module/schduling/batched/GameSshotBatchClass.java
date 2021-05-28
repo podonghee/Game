@@ -89,7 +89,7 @@ public class GameSshotBatchClass extends BasicClass {
             for (WebElement wel : webElements) {
                 imgListUrl = wel.findElement(By.cssSelector("img")).getAttribute("src");
                 shvo.setGameSshotImgUrl(imgListUrl);
-                shvo.setGameParentGroupId(shvo.getGameSshotId());
+                shvo.setGameParentSshotId(shvo.getGameSshotId());
                 shvo.setDescription("");
                 shvo.setGameSshotUrl("");
 
@@ -120,7 +120,7 @@ public class GameSshotBatchClass extends BasicClass {
                     for (WebElement wel : webElements) {
                         imgListUrl = wel.findElement(By.cssSelector("img")).getAttribute("src");
                         shvo.setGameSshotImgUrl(imgListUrl);
-                        shvo.setGameParentGroupId(shvo.getGameSshotId());
+                        shvo.setGameParentSshotId(shvo.getGameSshotId());
                         shvo.setDescription("");
                         batchMapper.insertSsohtInfo(shvo);
                     }
